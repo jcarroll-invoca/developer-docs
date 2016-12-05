@@ -35,7 +35,8 @@
       "max_pool_size": 15,
       "tracking_url": "https://www.invoca.com",
       "destination_type": "Advertiser",
-      "lifetime_seconds": 1800
+      "lifetime_seconds": 1800,
+      "ringpool_incubation": "true"
     }
 
   Response Code: 201
@@ -80,7 +81,8 @@
       "max_pool_size": 15,
       "tracking_url": "https://www.invoca.com",
       "destination_type": "Advertiser",
-      "lifetime_seconds": 1800
+      "lifetime_seconds": 1800,
+      "ringpool_incubation": "true"
     }
 
   Response Code: 201

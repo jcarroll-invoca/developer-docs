@@ -41,7 +41,8 @@
       "max_pool_size": 15,
       "tracking_url": "value",
       "test_click_url": "value",
-      "api_key": "value"
+      "api_key": "value",
+      "ringpool_incubation": "true"
     }
 
   .. raw:: html
@@ -85,5 +86,6 @@
       "max_pool_size": 15,
       "tracking_url": "value",
       "test_click_url": "value",
-      "api_key": "value"
+      "api_key": "value",
+      "ringpool_incubation": "true"
     }
