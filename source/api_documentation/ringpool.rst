@@ -1,32 +1,43 @@
-Ringpool
+RingPools
 ========
 
 The RingPool API allocates a dynamic, trackable promo phone number from a RingPool. A valid call to the RingPool API returns a promo number and a formatted click-through URL.
 
-Example API URL:
+**Example API URL:**
 
-``https://<NETWORK>.invoca.net/api/@@RINGPOOL_API_VERSION/ring_pools/16/allocate_number.xml?ring_pool_key=<KEY>&site=<VALUE1>&location=<VALUE2>``
+.. code-block::
 
-<NETWORK>.invoca.net is the vanity URL for your platform. Note that your platform may exist on invoca.net or ringrevenue.com, and both are supported.
+    https://<NETWORK>.invoca.net/api/@@RINGPOOL_API_VERSION/ring_pools/<RINGPOOL_ID>/allocate_number.xml?ring_pool_key=<KEY>&site=<VALUE1>&location=<VALUE2>
 
-<RingPool_ID> is a unique identifier for the RingPool.
+**Explanation of <PLACEHOLDER> text:**
 
-<KEY> is the RingPool key, which is provided through the RingPool wizard UI on the platform and should be kept a secret. The parameters are explained in detail below in the “API Parameters” section.
+  ``<NETWORK>``.invoca.net is the vanity URL for your platform (e.g. mycompany.invoca.net). Note that your platform may exist on invoca.net or ringrevenue.com, and both are supported.
 
-The parameter names should match those chosen in the RingPool wizard, or you can use generic parameter names “param1”, “param2”, etc. Here is the same API URL with the generic parameter names:
+  ``<RINGPOOL_ID>`` is a unique identifier for the RingPool (found via the RingPool wizard UI; see below for screenshots of where to find this).
 
-``https://<NETWORK>.invoca.net/api/@@RINGPOOL_API_VERSION/ring_pools/16/allocate_number.xml?ring_pool_key=<KEY>&param1=<VALUE1>&param2=<VALUE2>``
+  ``<KEY>`` is the RingPool key, which is provided through the RingPool wizard UI on the platform and should be kept a secret. The parameters are explained in detail below in the “API Parameters” section.
 
-**Note:** To access the campaign RingPool’s API URL navigate to the Campaign Summary’s RingPool tab and click “get api url” under Actions.
+**Note:** *The parameter names should match those chosen in the RingPool wizard, or you can use generic parameter names such as* ``param1`` *,* ``param2`` *, etc. Here is the same API URL with the generic parameter names:*
 
-.. image:: ../_static/ringpool_actions.png
+|
+**Example API URL with Default RingPool Parameters**
+
+.. code-block::
+
+  https://<NETWORK>.invoca.net/api/2015-12-09/ring_pools/16/allocate_number.xml?ring_pool_key=<KEY>&param1=<VALUE1>&param2=<VALUE2>
+
+**Note:** *To access the campaign RingPool’s API URL navigate to the Campaign Summary’s RingPool tab and click “get details” on the row of the RingPool you are interested in using.*
+
+.. image:: ../_static/whereToFingRingPoolID_and_URL.png
 
 .. raw:: html
 
   <br />
 
-.. image:: ../_static/ringpool_get_api_url.png
+.. image:: ../_static/whereToFingRingPoolID_and_URL_modal.png
+   :width: 500
 
+|
 Response Formats
 ----------------
 
@@ -47,7 +58,11 @@ The response can be in any of these formats: **xml**, **json** or **csv**. To ch
 
 .. code-block:: json
 
-  {"promo_number_formatted":"888-390-6665","tracking_url":" https://invoca.net/c/1/14-11-109?us=http%3A%2F%2Fwww2.invoca.net.com%2Fdemo%2F8x8_staging.html%3Fsid%3D8883906665%26PPCPN%3D8883906665","promo_number":"8883906665"}
+  {
+    "promo_number_formatted":"888-390-6665",
+    "tracking_url":" https://invoca.net/c/1/14-11-109?us=http%3A%2F%2Fwww2.invoca.net.com%2Fdemo%2F8x8_staging.html%3Fsid%3D8883906665%26PPCPN%3D8883906665",
+    "promo_number":"8883906665"
+  }
 
 **csv**
 
@@ -56,10 +71,18 @@ The response can be in any of these formats: **xml**, **json** or **csv**. To ch
   PromoNumberFormatted,PromoNumber,TrackingUrl
   888-390-6665,8883906665, https://invoca.net/c/1/14-11-109?us=http%3A%2F%2Fwww2.invoca.net%2Fdemo%2F8x8_staging.html%3Fsid%3D8883906665%26PPCPN%3D8883906665
 
-As an advertiser, you can allocate promo numbers from your RingPool on behalf of your affiliates in order to credit them for calls. Just include an affiliate id in the query string of the API URL. Note that the parameter name depends on your network and the value must match what is set on the affiliate account. Here is an example URL for tracking affiliate 5567 on a network that calls the affiliate id a pid:
+**Giving Credit to Affiliates**
 
-``https://<NETWORK>.invoca.net/api/@@NETWORK_API_VERSION/ring_pools/16/allocate_number.xml?ring_pool_key=<KEY>&pid=5567&sid=adwords``
+As an advertiser, you can allocate promo numbers from your RingPool on behalf of your affiliates in order to credit them for calls. Just include an *Affiliate ID* in the query string of the API URL. Note that the parameter name depends on your network and the value must match what is set on the affiliate account. 
 
+|
+**Here is an example URL for tracking affiliate 5567 on a network that calls the** *Affiliate ID* **a** ``pid`` **:**
+
+.. code-block::
+
+  https://<NETWORK>.invoca.net/api/@@NETWORK_API_VERSION/ring_pools/<RINGPOOL_ID>/allocate_number.xml?ring_pool_key=<KEY>&pid=5567&sid=adwords
+
+|
 Errors
 ------
 
@@ -73,31 +96,29 @@ The RingPool API clearly identifies errors when a request can not be processed. 
     <Message>API Key 'A329F4DC002168' is not valid for resource '1'</Message>
   </Error>
 
-Or for json or csv, the following text is returned:
+Or for JSON or CSV, the following text is returned:
 
-`InvalidKey: API Key 'A329F4DC002168' is not valid for resource '1'`
+.. code-block::
 
-If a system error occurs, an InternalServiceError is returned in XML (or simple text for json or csv) with an integer error handle. Contact questions@invoca.com to determine the root cause of the error.
+  InvalidKey: API Key 'A329F4DC002168' is not valid for resource '1'
 
+If a system error occurs an ``InternalServiceError`` is returned in XML (or simple text for JSON or CSV) with an integer error handle. **Contact** questions@invoca.com **to determine the root cause of the error.**
+
+|
 RingPool Types
 --------------
 
-All 6 RingPool types are supported by the API:
+All 6 RingPool types are supported by the API
 
-Custom
-
-Custom + Search keywords
-
-Search Engine + Keywords
-
-Search Engine + Keyword ID
-
-Referral Domains
-
-Referral Domains + search
+* Custom
+* Custom + Search Keywords
+* Search Engine + Keywords
+* Search Engine + Keyword ID
+* Referral Domains
+* Referral Domains + Search
 
 API Parameters
-""""""""""""""
+--------------
 
 The API supports the following parameters:
 
@@ -119,7 +140,7 @@ The API supports the following parameters:
     - [Custom RingPools only] The second custom parameter of a Custom RingPool.
 
   * - …
-    -
+    - …
 
   * - param10=
     - [Custom RingPools only] The 10th custom parameter of a Custom RingPool.
@@ -144,8 +165,4 @@ The API supports the following parameters:
 
   * - <NETWORK_AFFILIATE_ID_NAME>
     - [Optional] This parameter name is determined by the network and is used to allocate a promo number on behalf of the publisher. For example, pid=2341
-
-Endpoint:
-
-``https://invoca.net/api/@@RINGPOOL_API_VERSION/ring_pools/16/allocate_number.xml?ring_pool_key=<KEY>&param1=<VALUE1>&param2=<VALUE2>``
 
